@@ -11,17 +11,16 @@ class WishesController < ApplicationController
 
     def create 
         
-        name = params[:name]
-        description = params[:description]
-        img = params[:img]
-        price = params[:price]
-        url = params[:url]
+        # name = params[:name]
+        # description = params[:description]
+        # img = params[:img]
+        # price = params[:price]
+        # url = params[:url]
         user_id = params[:user_id]
-        byebug
         user = User.find(user_id)
-        byebug
-        wish = Wish.new(wish_params(name: name, description: description, img: img, price: price, url: url, user_id: user_id))
-        byebug
+        # wish = Wish.new(wish_params(name: name, description: description, img: img, price: price, url: url, user_id: user_id))
+                # wish = Wish.new(wish_params(name: name, description: description, img: img, price: price, url: url, user_id: user_id))
+        wish = Wish.new(wish_params)
         if wish
             wish.save
             user.wishes << wish
@@ -73,8 +72,8 @@ class WishesController < ApplicationController
 
     private 
 
-    def wish_params(*args)
-        params.require(:wish).permit(*args)
+    def wish_params
+        params.require(:wish).permit(:name, :description, :img, :description, :price, :url, :user_id)
     end 
     
 end
