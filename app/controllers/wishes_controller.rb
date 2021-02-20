@@ -55,8 +55,11 @@ class WishesController < ApplicationController
         url ||= wish.url
 
 
-        if wish.update(wish_params(name: name, description: description, img: img, price: price, url:url))
-            render json: {message: 'Wish has been updated'}
+        if wish.update(wish_params)
+            render json: wish, include: '*.*'
+        else 
+            render json: {error: 'Couldnt update'}
+
             
         end
 
@@ -73,7 +76,7 @@ class WishesController < ApplicationController
     private 
 
     def wish_params
-        params.require(:wish).permit(:name, :description, :img, :description, :price, :url, :user_id)
+        params.require(:wish).permit(:name, :description, :img, :description, :price, :url)
     end 
     
 end
